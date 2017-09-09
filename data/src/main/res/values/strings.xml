@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">data</string>
+    <string name="prefs_note_list">prefs_note_list</string>
+</resources>
