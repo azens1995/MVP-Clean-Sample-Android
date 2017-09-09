@@ -1,10 +1,12 @@
-package com.davidecirillo.mvpcleansample.presentation.show_notes.data;
+package com.davidecirillo.mvpcleansample.data;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
-import com.davidecirillo.mvpcleansample.presentation.show_notes.domain.model.NoteDomainModel;
-import com.davidecirillo.mvpcleansample.utils.Prefs;
+import com.davidecirillo.mvpcleansample.data.notes.model.NoteDataModel;
+import com.davidecirillo.mvpcleansample.data.notes.repository.api.NotesRepository;
+import com.davidecirillo.mvpcleansample.data.notes.repository.preferences.PreferenceNotesRepository;
+import com.davidecirillo.mvpcleansample.data.notes.repository.preferences.Prefs;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,10 +38,10 @@ public class PreferenceNotesRepositoryTest {
         String expectedText = "Test";
         String expectedTitle = "Title";
         Long expectedTimestamp = 5L;
-        mCut.saveNote(new NoteDomainModel(expectedTitle, expectedText, expectedTimestamp));
+        mCut.saveNote(new NoteDataModel(expectedTitle, expectedText, expectedTimestamp));
 
         // Then
-        ArrayList<NoteDomainModel> noteDomainModels = mCut.getNotes();
+        ArrayList<NoteDataModel> noteDomainModels = mCut.getNotes();
         assertEquals(1, noteDomainModels.size());
         assertEquals(expectedText, noteDomainModels.get(0).getText());
     }
@@ -50,10 +52,10 @@ public class PreferenceNotesRepositoryTest {
         String expectedText = "Test";
         String expectedTitle = "Title";
         Long expectedTimestamp = 5L;
-        mCut.saveNote(new NoteDomainModel(expectedTitle, expectedText, expectedTimestamp));
+        mCut.saveNote(new NoteDataModel(expectedTitle, expectedText, expectedTimestamp));
 
         // When
-        ArrayList<NoteDomainModel> noteDomainModels = mCut.getNotes();
+        ArrayList<NoteDataModel> noteDomainModels = mCut.getNotes();
 
         // Then
         assertEquals(1, noteDomainModels.size());
@@ -63,17 +65,17 @@ public class PreferenceNotesRepositoryTest {
     @Test
     public void testGivenTwoNotesAddedWhenDeleteFirstNoteThenOnlySecondNoteInMemory() throws Exception {
         // Given
-        NoteDomainModel noteDomainModel = new NoteDomainModel("Test", "Test", 0L);
-        NoteDomainModel noteDomainModel1 = new NoteDomainModel("Test1", "Test1", 1L);
-        mCut.saveNote(noteDomainModel);
-        mCut.saveNote(noteDomainModel1);
+        NoteDataModel noteDataModel = new NoteDataModel("Test", "Test", 0L);
+        NoteDataModel noteDataModel1 = new NoteDataModel("Test1", "Test1", 1L);
+        mCut.saveNote(noteDataModel);
+        mCut.saveNote(noteDataModel1);
         assertEquals(2, mCut.getNotes().size());
 
         // When
-        mCut.deleteNote(noteDomainModel);
+        mCut.deleteNote(noteDataModel);
 
         // Then
         assertEquals(1, mCut.getNotes().size());
-        assertEquals(noteDomainModel1, mCut.getNotes().get(0));
+        assertEquals(noteDataModel1, mCut.getNotes().get(0));
     }
 }

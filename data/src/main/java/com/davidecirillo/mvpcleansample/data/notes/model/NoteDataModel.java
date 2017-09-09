@@ -7,9 +7,9 @@ public class NoteDataModel {
     private String mText;
     private Long mCreatedAt;
 
-    public NoteDataModel(String title, String string, Long createdAt) {
+    public NoteDataModel(String title, String text, Long createdAt) {
         mTitle = title;
-        mText = string;
+        mText = text;
         mCreatedAt = createdAt;
     }
 
